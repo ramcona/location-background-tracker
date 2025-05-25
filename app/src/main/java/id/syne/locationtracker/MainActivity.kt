@@ -25,11 +25,9 @@ class MainActivity : AppCompatActivity() {
     ) { permissions ->
         when {
             permissions.getOrDefault(Manifest.permission.ACCESS_FINE_LOCATION, false) -> {
-                // Fine location access granted
                 checkBackgroundLocationPermission()
             }
             permissions.getOrDefault(Manifest.permission.ACCESS_COARSE_LOCATION, false) -> {
-                // Only coarse location access granted
                 checkBackgroundLocationPermission()
             }
             else -> {
@@ -54,7 +52,6 @@ class MainActivity : AppCompatActivity() {
         setupClickListeners()
         updateUI()
 
-        // Request notification permission for Android 13+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             if (ContextCompat.checkSelfPermission(this, Manifest.permission.POST_NOTIFICATIONS)
                 != PackageManager.PERMISSION_GRANTED) {
@@ -205,7 +202,6 @@ class MainActivity : AppCompatActivity() {
             .setTitle("GPS Required")
             .setMessage("GPS/Location Services must be enabled for location tracking to work. Please enable GPS in your device settings.")
             .setPositiveButton("Enable GPS") { _, _ ->
-                // Open GPS settings
                 val intent = Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS)
                 startActivity(intent)
             }
@@ -240,7 +236,6 @@ class MainActivity : AppCompatActivity() {
         val serviceIntent = Intent(this, LocationTrackingService::class.java)
         stopService(serviceIntent)
 
-        // Save tracking state
         val prefs = getSharedPreferences("location_settings", MODE_PRIVATE)
         prefs.edit().putBoolean("tracking_enabled", false).apply()
 

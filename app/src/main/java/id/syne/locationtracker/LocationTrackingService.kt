@@ -124,7 +124,7 @@ class LocationTrackingService : Service() {
             val channel = NotificationChannel(
                 CHANNEL_ID,
                 "Location Tracking",
-                NotificationManager.IMPORTANCE_HIGH // Changed to HIGH for better visibility
+                NotificationManager.IMPORTANCE_HIGH
             ).apply {
                 description = "Shows when location tracking is active"
                 setSound(null, null)
@@ -158,10 +158,10 @@ class LocationTrackingService : Service() {
             .setSmallIcon(R.drawable.ic_launcher_foreground)
             .setContentIntent(pendingIntent)
             .addAction(R.drawable.ic_launcher_foreground, "Stop", stopPendingIntent)
-            .setOngoing(true) // Makes notification non-clearable
-            .setAutoCancel(false) // Prevents clearing when tapped
+            .setOngoing(true)
+            .setAutoCancel(false)
             .setSilent(true)
-            .setPriority(NotificationCompat.PRIORITY_HIGH) // High priority for visibility
+            .setPriority(NotificationCompat.PRIORITY_HIGH)
             .setCategory(NotificationCompat.CATEGORY_SERVICE)
             .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
             .setForegroundServiceBehavior(NotificationCompat.FOREGROUND_SERVICE_IMMEDIATE)
@@ -182,7 +182,6 @@ class LocationTrackingService : Service() {
             PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
         )
 
-        // Format location with better precision and add timestamp
         val timestamp = java.text.SimpleDateFormat("HH:mm:ss", java.util.Locale.getDefault())
             .format(java.util.Date(location.time))
 
